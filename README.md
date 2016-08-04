@@ -1,4 +1,4 @@
-# Divorce service
+# Application service
 
 Basic REST service to create and retrieve applications from a relational DB (PostgreSQL).
 
