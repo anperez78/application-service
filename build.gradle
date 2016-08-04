@@ -1,0 +1,71 @@
+apply plugin: 'java'
+apply plugin: 'gradle-one-jar'
+apply plugin: 'application'
+apply plugin: 'idea'
+apply plugin: 'pmd'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+mainClassName = 'application.service.App'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.github.rholder:gradle-one-jar:1.0.3'
+    }
+}
+
+project.ext {
+    dropwizardVersion = '1.0.0-rc4'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile (
+        'io.dropwizard:dropwizard-core:' + dropwizardVersion,
+        'io.dropwizard:dropwizard-jdbi:' + dropwizardVersion,
+        'postgresql:postgresql:9.1-901-1.jdbc4'
+    )
+    testCompile (
+        'io.dropwizard:dropwizard-testing:' + dropwizardVersion,
+        'com.h2database:h2:1.4.181'
+    )
+}
+
+pmd {
+    ignoreFailures = false
+    consoleOutput = true
+    sourceSets = [sourceSets.main]
+    reportsDir = file("$project.buildDir/reports/pmd")
+}
+
+test {
+    afterTest { desc, result ->
+        println "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+    }
+}
+
+task oneJar(type: OneJar) {
+    mainClass = mainClassName
+}
+
+run {
+    args 'server', './config.yml'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14'
+}
+
+artifacts {
+    oneJar
+}
