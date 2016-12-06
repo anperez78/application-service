@@ -3,6 +3,8 @@ apply plugin: 'gradle-one-jar'
 apply plugin: 'application'
 apply plugin: 'idea'
 apply plugin: 'pmd'
+apply plugin: 'maven-publish'
+apply plugin: "com.jfrog.artifactory"
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -10,14 +12,18 @@ targetCompatibility = '1.8'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 mainClassName = 'application.service.App'
+group = 'application.service'
+version = currentVersion
 
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
 
     dependencies {
         classpath 'com.github.rholder:gradle-one-jar:1.0.3'
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.4.10'
     }
 }
 
@@ -68,4 +74,29 @@ task wrapper(type: Wrapper) {
 
 artifacts {
     oneJar
+}
+
+artifactory {
+    contextUrl = artifactoryUrl
+    publish {
+        repository {
+            repoKey = 'libs-snapshot-local'
+            username = artifactoryUser
+            password = artifactoryPassword
+        }
+        defaults {
+            publications ('mavenJava')
+        }
+    }
+    resolve {
+        repoKey = 'jcenter'
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
 }
