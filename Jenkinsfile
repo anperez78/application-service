@@ -15,6 +15,7 @@ node {
         ansiblePlaybook(
             playbook: 'playbook.yml',
             inventory: 'inventory/sandbox',
+            extras: '-vvv',
             colorized: true)
   }
 }
