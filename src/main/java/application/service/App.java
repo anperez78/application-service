@@ -2,7 +2,9 @@ package application.service;
 
 import application.service.resource.ApplicationServiceResource;
 import io.dropwizard.Application;
+import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
+import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.skife.jdbi.v2.DBI;
@@ -17,6 +19,12 @@ public class App extends Application<AppConfiguration>
 
     @Override
     public void initialize(Bootstrap<AppConfiguration> bootstrap) {
+        bootstrap.addBundle(new MigrationsBundle<AppConfiguration>() {
+            @Override
+            public DataSourceFactory getDataSourceFactory(AppConfiguration configuration) {
+                return configuration.getDataSourceFactory();
+            }
+        });
     }
 
     @Override
