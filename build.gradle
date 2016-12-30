@@ -11,11 +11,6 @@ targetCompatibility = '1.8'
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-mainClassName = 'application.service.App'
-group = 'application.service'
-artifactId = 'application-service'
-version = currentVersion
-
 buildscript {
     repositories {
         mavenCentral()
@@ -71,8 +66,9 @@ task wrapper(type: Wrapper) {
 }
 
 shadowJar {
-   baseName = 'application-service'
-   classifier = 'fat'
+    mainClassName = 'application.service.App'
+    baseName = 'application-service'
+    classifier = 'fat'
 }
 
 artifactory {
@@ -95,9 +91,9 @@ artifactory {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId group
-            artifactId artifactId
-            version version
+            groupId 'application.service'
+            artifactId 'application-service'
+            version currentVersion
             from components.java
             artifact shadowJar
         }
