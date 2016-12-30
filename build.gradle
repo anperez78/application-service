@@ -1,10 +1,10 @@
 apply plugin: 'java'
-apply plugin: 'gradle-one-jar'
 apply plugin: 'application'
 apply plugin: 'idea'
 apply plugin: 'pmd'
+apply plugin: 'eu.appsatori.fatjar'
 apply plugin: 'maven-publish'
-apply plugin: "com.jfrog.artifactory"
+apply plugin: 'com.jfrog.artifactory'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
@@ -22,7 +22,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.rholder:gradle-one-jar:1.0.3'
+        classpath "eu.appsatori:gradle-fatjar-plugin:0.3"
         classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.4.10'
     }
 }
@@ -60,10 +60,6 @@ test {
     }
 }
 
-task oneJar(type: OneJar) {
-    mainClass = mainClassName
-}
-
 run {
     args 'server', './config.yml'
 }
@@ -72,8 +68,14 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.14'
 }
 
-artifacts {
-    oneJar
+fatJar {
+    classifier 'fat'
+
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+
+    exclude 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.SF'
 }
 
 artifactory {
@@ -97,7 +99,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            artifactId 'demo-service'
+            artifact fatJar
         }
     }
 }
