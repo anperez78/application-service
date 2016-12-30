@@ -39,6 +39,7 @@ dependencies {
     compile (
         'io.dropwizard:dropwizard-core:' + dropwizardVersion,
         'io.dropwizard:dropwizard-jdbi:' + dropwizardVersion,
+        'io.dropwizard:dropwizard-migrations:' + dropwizardVersion,
         'postgresql:postgresql:9.1-901-1.jdbc4'
     )
     testCompile (
