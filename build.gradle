@@ -66,6 +66,7 @@ task wrapper(type: Wrapper) {
 }
 
 shadowJar {
+    mergeServiceFiles()
     mainClassName = 'application.service.App'
     baseName = 'application-service'
     classifier = 'fat'
