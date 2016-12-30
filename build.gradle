@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'idea'
 apply plugin: 'pmd'
-apply plugin: 'eu.appsatori.fatjar'
+apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.artifactory'
 
@@ -22,7 +22,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "eu.appsatori:gradle-fatjar-plugin:0.3"
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
         classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.4.10'
     }
 }
@@ -69,14 +69,9 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.14'
 }
 
-fatJar {
-    classifier 'fat'
-
-    manifest {
-        attributes 'Main-Class': mainClassName
-    }
-
-    exclude 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.SF'
+shadowJar {
+   baseName = 'application-service'
+   classifier = 'fat'
 }
 
 artifactory {
@@ -100,7 +95,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            artifact fatJar
+            artifact shadowJar
         }
     }
 }

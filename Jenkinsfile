@@ -6,7 +6,7 @@ node {
 
   stage 'Stage Build & Publish'
   echo "My branch is: ${env.BRANCH_NAME}"
-  sh "./gradlew clean check test fatJar artifactoryPublish"
+  sh "./gradlew clean test shadowJar artifactoryPublish"
 
   stage 'Stage Deploy'
   git ([url: 'https://github.com/anperez78/ansible-application-service.git', branch: 'master'])
