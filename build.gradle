@@ -13,6 +13,7 @@ targetCompatibility = '1.8'
 
 mainClassName = 'application.service.App'
 group = 'application.service'
+artifactId = 'application-service'
 version = currentVersion
 
 buildscript {
@@ -94,6 +95,9 @@ artifactory {
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            groupId group
+            artifactId artifactId
+            version version
             from components.java
             artifact shadowJar
         }
