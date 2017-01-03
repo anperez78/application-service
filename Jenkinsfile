@@ -1,20 +1,15 @@
 #!groovy
 
 node {
-  stage 'Stage Checkout'
+  stage 'SCM Checkout'
   checkout scm
 
-  stage 'Stage Build & Publish'
+  stage 'Build & Publish'
   echo "My branch is: ${env.BRANCH_NAME}"
   sh "./gradlew clean test shadowJar artifactoryPublish"
 
-  stage 'Stage Deploy'
+  stage 'Deploy to Sandbox'
   git ([url: 'https://github.com/anperez78/ansible-application-service.git', branch: 'master'])
   sh "ansible-galaxy install --role-file=./requirements.yml --roles-path=./roles/ --force"
-  wrap([$class: 'AnsiColorBuildWrapper', colorMapName: "xterm"]) {
-        ansiblePlaybook(
-            playbook: 'playbook.yml',
-            inventory: 'inventory/sandbox',
-            colorized: true)
-  }
+  sh "ansible-playbook playbook.yml -i inventory/sandbox"
 }
