@@ -9,7 +9,7 @@ node {
   sh "./gradlew clean test shadowJar artifactoryPublish"
 
   stage 'Deploy to Sandbox'
-  git ([url: 'https://github.com/anperez78/ansible-application-service.git', branch: 'master'])
+  git ([url: 'https://github.com/anperez78/vagrant-demo-sandbox.git', branch: 'master'])
   sh "ansible-galaxy install --role-file=./requirements.yml --roles-path=./roles/ --force"
-  sh "ansible-playbook playbook.yml -i inventory/sandbox"
+  sh "ansible-playbook playbooks/deploy-service-api.yml -i inventory/sandbox"
 }
