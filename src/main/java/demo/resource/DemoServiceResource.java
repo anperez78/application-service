@@ -1,9 +1,9 @@
-package application.service.resource;
+package demo.resource;
 
 import com.codahale.metrics.annotation.Timed;
-import application.service.dao.ApplicationDAO;
-import application.service.dto.CreateApplicationDTO;
-import application.service.model.Application;
+import demo.dao.ApplicationDAO;
+import demo.dto.CreateApplicationDTO;
+import demo.model.Application;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -16,11 +16,11 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("/application")
-public class ApplicationServiceResource {
+public class DemoServiceResource {
 
     private ApplicationDAO applicationDAO;
 
-    public ApplicationServiceResource(ApplicationDAO applicationDAO) {
+    public DemoServiceResource(ApplicationDAO applicationDAO) {
         this.applicationDAO = applicationDAO;
     }
 

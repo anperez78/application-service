@@ -1,6 +1,6 @@
-package application.service.utils;
+package demo.utils;
 
-import application.service.dao.ApplicationDAO;
+import demo.dao.ApplicationDAO;
 import com.codahale.metrics.MetricRegistry;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jackson.Jackson;

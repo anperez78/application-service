@@ -1,2 +1,2 @@
 #!/bin/sh
-gradle clean check test oneJar
+gradle clean check test shadowJar

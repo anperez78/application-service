@@ -1,6 +1,6 @@
-package application.service.mapper;
+package demo.mapper;
 
-import application.service.model.Application;
+import demo.model.Application;
 import org.junit.Test;
 
 import java.sql.ResultSet;

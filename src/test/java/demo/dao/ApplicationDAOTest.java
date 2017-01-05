@@ -1,7 +1,7 @@
-package application.service.dao;
+package demo.dao;
 
-import application.service.model.Application;
-import application.service.utils.ApplicationDBH2;
+import demo.model.Application;
+import demo.utils.ApplicationDBH2;
 import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;

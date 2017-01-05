@@ -1,12 +1,13 @@
-package application.service.dao;
+package demo.dao;
 
+import demo.mapper.ApplicationMapper;
+import demo.model.Application;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
-import application.service.mapper.ApplicationMapper;
-import application.service.model.Application;
+
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package application.service.mapper;
+package demo.mapper;
 
+import demo.model.Application;
 import org.skife.jdbi.v2.StatementContext;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
-import application.service.model.Application;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

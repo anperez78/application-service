@@ -6,7 +6,7 @@ node {
 
   stage 'Build & Publish'
   echo "My branch is: ${env.BRANCH_NAME}"
-  sh "./gradlew clean test shadowJar artifactoryPublish"
+  sh "./gradlew clean check test shadowJar artifactoryPublish"
 
   stage 'Deploy to Sandbox'
   git ([url: 'https://github.com/anperez78/vagrant-demo-sandbox.git', branch: 'master'])

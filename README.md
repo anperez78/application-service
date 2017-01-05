@@ -1,6 +1,6 @@
-# Application service
+# Demo service
 
-Basic REST service to create and retrieve applications from a relational DB (PostgreSQL).
+Basic Dropwizard REST service to create and retrieve applications from a relational DB (PostgreSQL).
 
 ### Prerequisities
 
@@ -11,8 +11,8 @@ to start working on it.
 ### Installing
 
 ```
-$ git clone https://github.com/anperez78/application-service.git
-$ cd application-service
+$ git clone https://github.com/anperez78/demo-service.git
+$ cd demo-service
 $ ./generate.sh
 $ ./run.sh
 ```

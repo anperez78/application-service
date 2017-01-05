@@ -1,8 +1,8 @@
-package application.service.resource;
+package demo.resource;
 
-import application.service.dao.ApplicationDAO;
-import application.service.dto.CreateApplicationDTO;
-import application.service.model.Application;
+import demo.dao.ApplicationDAO;
+import demo.dto.CreateApplicationDTO;
+import demo.model.Application;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -22,13 +22,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class ApplicationServiceResourceTest {
+public class DemoServiceResourceTest {
 
     private static final ApplicationDAO mockedApplicationDAO = mock(ApplicationDAO.class);
 
     @ClassRule
     public static final ResourceTestRule resources = ResourceTestRule.builder()
-            .addResource(new ApplicationServiceResource(mockedApplicationDAO))
+            .addResource(new DemoServiceResource(mockedApplicationDAO))
             .build();
 
     @Test

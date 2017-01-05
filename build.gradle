@@ -67,8 +67,8 @@ task wrapper(type: Wrapper) {
 
 shadowJar {
     mergeServiceFiles()
-    mainClassName = 'application.service.App'
-    baseName = 'application-service'
+    mainClassName = 'demo.DemoServiceApp'
+    baseName = 'demo-service'
     classifier = 'fat'
 }
 
@@ -92,8 +92,8 @@ artifactory {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            groupId 'application.service'
-            artifactId 'application-service'
+            groupId 'demo'
+            artifactId 'demo-service'
             version currentVersion
             from components.java
             artifact shadowJar
