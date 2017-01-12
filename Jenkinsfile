@@ -19,5 +19,6 @@ node {
   }
 
   stage 'Integration Tests'
+  env.INT_TESTS_BASE_URL = "http://192.168.39.12:8080"
   sh "./gradlew integration"
 }
