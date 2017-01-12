@@ -23,6 +23,20 @@ buildscript {
     }
 }
 
+sourceSets {
+    integration {
+        java.srcDir 'src/integration-test/java'
+        resources.srcDir 'src/integration-test/resources'
+        compileClasspath += main.output + test.output
+        runtimeClasspath += main.output + test.output
+    }
+}
+
+configurations {
+    integrationCompile.extendsFrom testCompile
+    integrationRuntime.extendsFrom testRuntime
+}
+
 project.ext {
     dropwizardVersion = '1.0.2'
 }
@@ -42,6 +56,9 @@ dependencies {
         'io.dropwizard:dropwizard-testing:' + dropwizardVersion,
         'com.h2database:h2:1.4.181'
     )
+    integrationCompile (
+        'com.jayway.restassured:rest-assured:2.9.0'
+    )
 }
 
 pmd {
@@ -52,8 +69,28 @@ pmd {
 }
 
 test {
-    afterTest { desc, result ->
-        println "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+    testLogging {
+        exceptionFormat 'full'
+        events "passed", "skipped", "failed"
+        afterSuite { desc, result ->
+            if (!desc.parent) {
+                println "Tests run: ${result.testCount}, Failures: ${result.failedTestCount}, Skipped: ${result.skippedTestCount}"
+            }
+        }
+    }
+}
+
+task integration(type: Test) {
+    testClassesDir = sourceSets.integration.output.classesDir
+    classpath = sourceSets.integration.runtimeClasspath
+    testLogging {
+        exceptionFormat 'full'
+        events "passed", "skipped", "failed"
+        afterSuite { desc, result ->
+            if (!desc.parent) {
+                println "Tests run: ${result.testCount}, Failures: ${result.failedTestCount}, Skipped: ${result.skippedTestCount}"
+            }
+        }
     }
 }
 
