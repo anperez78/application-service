@@ -12,10 +12,12 @@ node {
   sh "./gradlew artifactoryPublish"
 
   stage 'Deploy to Sandbox'
-  git ([url: 'https://github.com/anperez78/vagrant-demo-sandbox.git', branch: 'master'])
-  sh "ansible-galaxy install --role-file=./requirements.yml --roles-path=./roles/ --force"
-  sh "ansible-playbook deploy-service-api.yml -i inventory/sandbox"
+  ws('workspace/demo-service/deploy') {
+      git([url: 'https://github.com/anperez78/vagrant-demo-sandbox.git', branch: 'master'])
+      sh "ansible-galaxy install --role-file=./requirements.yml --roles-path=./roles/ --force"
+      sh "ansible-playbook deploy-service-api.yml -i inventory/sandbox"
+  }
 
-  stage 'API Tests'
+  stage 'Integration Tests'
   sh "./gradlew integration"
 }
