@@ -1,9 +1,22 @@
 package demo;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static com.jayway.restassured.RestAssured.*;
 
 public class DemoServiceIntegrationTest {
+
+
+    private static String underTestBaseURL = "http://service-api.dev:8080";
+
+    @BeforeClass
+    public static void initializeVariables() {
+        String intTestsBaseUrl = System.getenv("INT_TESTS_BASE_URL");
+        if (intTestsBaseUrl != null) {
+            underTestBaseURL = intTestsBaseUrl;
+        }
+    }
+
 
     @Test
     public void createApplication() throws Exception {
@@ -15,7 +28,7 @@ public class DemoServiceIntegrationTest {
             contentType("application/json").
             body(newApp).
         when().
-            post("http://service-api.dev:8080/application").
+            post(underTestBaseURL + "/application").
         then().
             statusCode(200);
     }
@@ -26,7 +39,7 @@ public class DemoServiceIntegrationTest {
         given().
             contentType("application/json").
         when().
-            get("http://service-api.dev:8080/application").
+            get(underTestBaseURL + "/application").
         then().
             statusCode(200);
     }
