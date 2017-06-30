@@ -33,7 +33,7 @@ $ gradle test
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. 
+[SemVer](http://semver.org/) for versioning. 
 
 ## License
 
